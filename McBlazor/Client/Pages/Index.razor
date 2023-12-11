@@ -1,0 +1,17 @@
+﻿@page "/"
+
+<div class="row">
+    <div class="col-sm-3">
+        <FormInput @bind-Value="value" BindValueOnInput="true" />
+    </div>
+    <div class="col-sm-3">
+        <FormInput @bind-Value="label" />
+    </div>
+</div>
+
+@code{
+    [Label("My Value"), Placeholder("Hello"), Title("G'Day"), Note("Hadouken")]
+    private int? value = 12;
+
+    private string? label;
+}

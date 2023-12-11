@@ -1,0 +1,14 @@
+﻿<div class="form-display-container" title="@Title">
+    <div class="form-display-label-container d-flex">
+        <label class="form-display-label fw-bold text-decoration-underline text-info" for="@For">@Label</label>
+        @if (IsRequired) {
+            <span class="fw-bold text-danger ms-1">*</span>
+        }
+        @if (!string.IsNullOrWhiteSpace(Note)) {
+            <span class="form-display-note text-muted fst-italic ms-auto">@Note</span>
+        }
+    </div>
+    <div class="form-display-content-container ps-1">
+        @ChildContent
+    </div>
+</div>

@@ -1,0 +1,12 @@
+﻿
+@typeparam T
+@inherits FormEditorBase<T>
+
+<FormDisplay Label="@_label" Note="@_note" Title="@_title">
+    <input type="@inputType"
+           class="form-control"
+           value="@_value"
+           placeholder="@_placeholder"
+           @onchange="onChangeDelegate"
+           @oninput="onInputDelegate" />
+</FormDisplay>
