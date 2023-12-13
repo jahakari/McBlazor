@@ -1,0 +1,29 @@
+﻿<div class="card border @Theme.BorderClass">
+    @if (CardHeader is not null) {
+        <div class="card-header @Theme.BackgroundClass">
+            @CardHeader
+        </div>
+    }
+    <div class="card-body">
+        @CardBody
+    </div>
+    @if (CardFooter is not null) {
+        <div class="card-footer">
+            @CardFooter
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter]
+    public RenderFragment? CardHeader { get; set; }
+
+    [Parameter, EditorRequired]
+    public RenderFragment CardBody { get; set; } = null!;
+
+    [Parameter]
+    public RenderFragment? CardFooter { get; set; }
+
+    [Parameter]
+    public BootstrapTheme Theme { get; set; } = BootstrapTheme.Primary;
+}

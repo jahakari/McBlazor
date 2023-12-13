@@ -115,7 +115,7 @@ public abstract class FormEditorBase<T> : ComponentBase
                 null => default,
                 string s when !isStringValue && string.IsNullOrWhiteSpace(s) => default,
                 _ when TypeConverter is not null => (T?)TypeConverter.ConvertFrom(value),
-                _ => FormHelpers.ConvertFrom<T>(value)
+                _ => EditorHelpers.ConvertFrom<T>(value)
             };
 
             return true;

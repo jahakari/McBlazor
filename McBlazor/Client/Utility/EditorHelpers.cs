@@ -3,7 +3,7 @@ using System.ComponentModel;
 
 namespace McBlazor.Client.Utility;
 
-public static class FormHelpers
+public static class EditorHelpers
 {
     private static readonly ImmutableDictionary<Type, TypeConverter> typeConverters = new Dictionary<Type, TypeConverter>()
     {

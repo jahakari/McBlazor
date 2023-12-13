@@ -14,7 +14,7 @@ public partial class FormInput<T> : FormEditorBase<T>
 
     protected override void OnInitialized()
     {
-        if (!FormHelpers.TryGetInputType<T>(out inputType)) {
+        if (!EditorHelpers.TryGetInputType<T>(out inputType)) {
             throw new Exception($"Input type could not be determined for Type '{typeof(T)}'.");
         }
 
