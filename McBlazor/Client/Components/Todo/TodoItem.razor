@@ -1,0 +1,22 @@
+﻿
+<div class="todo-item-block p-2">
+    <div class="d-flex">
+        <div class="fs-5 fw-bold text-info">
+            @Item.Title
+            <span class="badge @PriorityTheme.BackgroundClass rounded-pill ms-2">
+                @Item.Priority
+            </span>
+        </div>
+        <div class="btn-group ms-auto align-self-start">
+            <button type="button" class="btn btn-sm btn-primary" title="Edit this item" disabled="@Disable" @onclick="EditButtonClickedAsync">
+                <span class="fas fa-pencil-alt"></span>
+            </button>
+            <button type="button" class="btn btn-sm btn-danger" title="Delete this item" disabled="@Disable" @onclick="DeleteButtonClickedAsync">
+                <span class="fas fa-trash"></span>
+            </button>
+        </div>
+    </div>
+    <div class="text-muted">
+        @Item.Description
+    </div>
+</div>

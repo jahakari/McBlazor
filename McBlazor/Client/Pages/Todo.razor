@@ -1,0 +1,34 @@
+﻿@page "/Todo"
+
+@using McBlazor.Client.Components.Todo
+@using McBlazor.Shared.Models.Todo.ViewModels
+
+<div class="row justify-content-center">
+    <div class="col-lg-3">
+        <Card>
+            <CardHeader>
+                @(isEditing ? "Edit" : "New") Todo Item
+            </CardHeader>
+            <CardBody>
+                <FormInput @bind-Value="editingItem.Title" />
+                <FormSelect @bind-Value="editingItem.Priority" Items="priorityItems" />
+                <FormTextArea @bind-Value="editingItem.Description" Rows="4" />
+                <div class="btn-group mt-2">
+                    <button type="button" class="btn btn-sm btn-success" @onclick="SaveItem">
+                        <span class="fas fa-save"></span>&nbsp;Save
+                    </button>
+                    @if (isEditing) {
+                        <button type="button" class="btn btn-sm btn-dark" @onclick="CancelEditing">
+                            <span class="fas fa-ban"></span>&nbsp;Cancel
+                        </button>
+                    }
+                </div>
+            </CardBody>
+        </Card>
+    </div>
+    <div class="col-lg-5">
+        @foreach (TodoItemViewModel item in items) {
+            <TodoItem Item="item" OnEdit="EditItem" OnDelete="DeleteItemAsync" Disable="isEditing" />
+        }
+    </div>
+</div>

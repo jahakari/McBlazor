@@ -1,6 +1,6 @@
 ﻿namespace McBlazor.Shared.Utility;
 
-public static class EnumerableExtensions
+public static class Extensions
 {
     public static List<T> ToList<T>(this IEnumerable<T> source, int capacity)
     {
@@ -17,5 +17,19 @@ public static class EnumerableExtensions
         }
 
         return list;
+    }
+
+    public static void Replace<T>(this List<T> list, Predicate<T?> predicate, T replacementItem)
+    {
+        ArgumentNullException.ThrowIfNull(list, nameof(list));
+        ArgumentNullException.ThrowIfNull(predicate, nameof(predicate));
+
+        int index = list.FindIndex(predicate);
+
+        if (index < 0) {
+            return;
+        }
+
+        list[index] = replacementItem;
     }
 }

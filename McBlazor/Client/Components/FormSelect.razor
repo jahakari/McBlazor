@@ -4,6 +4,7 @@
 
 <FormDisplay Label="@_label" Title="@_title" Note="@_note">
     <select class="form-select"
+            value="@_value"
             @onchange="EditorChangedAsync">
         @foreach (SelectItem<T> item in Items) {
             <option value="@item.Value" selected="@EqualityComparer.Equals(item.Value, _value)" @key="item.Value">@item.Label</option>

@@ -18,4 +18,7 @@ public static class FormHelpers
         ArgumentNullException.ThrowIfNull(values, nameof(values));
         return values.Select(v => new SelectItem<T>(v)).ToList(values.Length);
     }
+
+    public static List<SelectItem<T>> CreateSelectItems<T>() where T : struct, Enum
+        => CreateSelectItems(Enum.GetValues<T>());
 }
