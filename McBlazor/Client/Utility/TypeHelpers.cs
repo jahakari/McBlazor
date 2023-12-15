@@ -1,4 +1,5 @@
 ﻿using System.Collections.Immutable;
+using System.Runtime.CompilerServices;
 
 namespace McBlazor.Client.Utility;
 
@@ -34,5 +35,10 @@ public static class TypeHelpers
 
     public static Type GetType<T>() => GetType(typeof(T));
 
-    public static Type GetType(Type type) => Nullable.GetUnderlyingType(type) ?? type;
+    public static Type GetType(Type type, [CallerArgumentExpression(nameof(type))] string expression = "")
+    {
+        ArgumentNullException.ThrowIfNull(type, expression);
+
+        return Nullable.GetUnderlyingType(type) ?? type;
+    }
 }

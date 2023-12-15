@@ -7,6 +7,8 @@ public static class ExpressionHelpers
 {
     public static MemberInfo GetMemberInfo<T>(Expression<Func<T?>> expression)
     {
+        ArgumentNullException.ThrowIfNull(expression, nameof(expression));
+
         return expression.Body switch
         {
             MemberExpression m => m.Member,
