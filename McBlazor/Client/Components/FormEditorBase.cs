@@ -1,15 +1,16 @@
 ﻿using McBlazor.Client.Utility;
-using McBlazor.Shared.Attributes;
+using McBlazor.Shared.Utility;
+using McBlazor.Shared.Validation;
 using Microsoft.AspNetCore.Components;
 using System.ComponentModel;
 using System.Linq.Expressions;
-using System.Reflection;
 
 namespace McBlazor.Client.Components;
 
-public abstract class FormEditorBase<T> : ComponentBase
+public abstract class FormEditorBase<T> : ValidatableComponent
 {
     private readonly bool isStringValue = typeof(T).Is<string>();
+    private MemberValidator memberValidator = MemberNonValidator.Instance;
 
     protected T? _value;
 
@@ -65,16 +66,17 @@ public abstract class FormEditorBase<T> : ComponentBase
         }
     }
 
-    protected override Task OnParametersSetAsync() => SetValueAsync(Value);
+    protected override void OnParametersSet() => _value = Value;
 
     protected override void OnInitialized()
     {
-        MemberInfo memberInfo = ExpressionHelpers.GetMemberInfo(ValueExpression);
+        var provider = MemberMetadataProvider.Create(ValueExpression);
+        memberValidator = MemberValidator.Create(provider);
 
-        _label ??= AttributeHelpers.GetAttributeValueOrDefault<LabelAttribute, string?>(memberInfo, a => a.Label, memberInfo.Name);
-        _note ??= AttributeHelpers.GetAttributeValueOrDefault<NoteAttribute, string?>(memberInfo, a => a.Note);
-        _title ??= AttributeHelpers.GetAttributeValueOrDefault<TitleAttribute, string?>(memberInfo, a => a.Title);
-        _placeholder ??= AttributeHelpers.GetAttributeValueOrDefault<PlaceholderAttribute, string?>(memberInfo, a => a.Placeholder);
+        _label ??= provider.Label;
+        _note ??= provider.Note;
+        _title ??= provider.Title;
+        _placeholder ??= provider.Placeholder;
 
         base.OnInitialized();
     }
@@ -106,6 +108,8 @@ public abstract class FormEditorBase<T> : ComponentBase
         await Task.Delay(1);
         await SetValueAsync(value);
     }
+
+    protected override Task<string?> ValidateInternalAsync() => memberValidator.ValidateAsync(_value);
 
     private bool TryGetValue(object? value, out T? result)
     {

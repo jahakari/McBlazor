@@ -1,4 +1,5 @@
-﻿using McBlazor.Client.Utility;
+﻿using McBlazor.Client.Components;
+using McBlazor.Client.Utility;
 using McBlazor.Shared.Components;
 using McBlazor.Shared.Models.Todo;
 using McBlazor.Shared.Models.Todo.ViewModels;
@@ -12,10 +13,10 @@ public partial class Todo : ComponentBase
 {
     private List<TodoItemViewModel> items = new();
     private TodoItemViewModel editingItem = new();
-    
     private bool isEditing;
-
+    
     private List<SelectItem<TodoPriority>> priorityItems = FormHelpers.CreateSelectItems<TodoPriority>();
+    private FormValidator validator = null!;
 
     [Inject]
     public IJSRuntime JSRuntime { get; set; } = null!;
@@ -32,10 +33,23 @@ public partial class Todo : ComponentBase
         isEditing = false;
     }
 
-    private void SaveItem()
+    private Task<string?> ValidateTitleAsync()
     {
+        if (string.IsNullOrWhiteSpace(editingItem.Title)) {
+            return Task.FromResult("Title is required")!;
+        }
+
+        return Task.FromResult<string?>(null);
+    }
+
+    private async Task SaveItemAsync()
+    {
+        if (!await validator.ValidateAsync()) {
+            return;
+        }
+
         if (isEditing) {
-            items.Replace(i => i.Id == editingItem.Id, editingItem);
+            items.Replace(i => i!.Id == editingItem.Id, editingItem);
         } else {
             items.Add(editingItem);
         }

@@ -2,11 +2,14 @@
 @inherits FormEditorBase<string>
 
 <FormDisplay Label="@_label" Title="@_title" Note="@_note">
-    <textarea class="form-control"
+    <textarea class="form-control @ValidationClass"
               placeholder="@_placeholder"
               rows="@Rows"
               value="@_value"
               @oninput="onInputDelegate!"
               @onchange="onChangeDelegate!">
     </textarea>
+    @if (validationError is not null) {
+        <span class="fw-bold text-danger">@validationError</span>
+    }
 </FormDisplay>

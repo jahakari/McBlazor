@@ -3,11 +3,14 @@
 @inherits FormEditorBase<T>
 
 <FormDisplay Label="@_label" Title="@_title" Note="@_note">
-    <select class="form-select"
+    <select class="form-select @ValidationClass"
             value="@_value"
             @onchange="EditorChangedAsync">
         @foreach (SelectItem<T> item in Items) {
             <option value="@item.Value" selected="@EqualityComparer.Equals(item.Value, _value)" @key="item.Value">@item.Label</option>
         }
     </select>
+    @if (validationError is not null) {
+        <span class="fw-bold text-danger">@validationError</span>
+    }
 </FormDisplay>

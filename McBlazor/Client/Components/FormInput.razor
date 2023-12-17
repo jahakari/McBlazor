@@ -4,9 +4,12 @@
 
 <FormDisplay Label="@_label" Note="@_note" Title="@_title">
     <input type="@inputType"
-           class="form-control"
+           class="form-control @ValidationClass"
            value="@_value"
            placeholder="@_placeholder"
            @onchange="onChangeDelegate!"
            @oninput="onInputDelegate!" />
+    @if (validationError is not null) {
+        <span class="fw-bold text-danger">@validationError</span>
+    }
 </FormDisplay>

@@ -32,4 +32,44 @@ public static class Extensions
 
         list[index] = replacementItem;
     }
+
+    public static bool TryAdd<T>(this List<T> list, T item)
+    {
+        ArgumentNullException.ThrowIfNull(list, nameof(list));
+
+        if (list.Contains(item)) {
+            return false;
+        }
+
+        list.Add(item);
+        return true;
+    }
+
+    public static async Task<bool> EveryAsync<T>(this IEnumerable<T> source, Func<T, Task<bool>> predicate)
+    {
+        ArgumentNullException.ThrowIfNull(source, nameof(source));
+        ArgumentNullException.ThrowIfNull(predicate, nameof(predicate));
+
+        bool result = true;
+
+        foreach (T item in source) {
+            result &= await predicate(item);
+        }
+
+        return result;
+    }
+
+    public static async Task<bool> AllAsync<T>(this IEnumerable<T> source, Func<T, Task<bool>> predicate)
+    {
+        ArgumentNullException.ThrowIfNull(source, nameof(source));
+        ArgumentNullException.ThrowIfNull(predicate, nameof(predicate));
+
+        foreach (T item in source) {
+            if (!await predicate(item)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

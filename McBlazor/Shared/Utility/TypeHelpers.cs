@@ -1,7 +1,7 @@
 ﻿using System.Collections.Immutable;
 using System.Runtime.CompilerServices;
 
-namespace McBlazor.Client.Utility;
+namespace McBlazor.Shared.Utility;
 
 public static class TypeHelpers
 {

@@ -7,7 +7,7 @@ public record TodoItemViewModel
 {
     public Guid Id { get; } = Guid.NewGuid();
 
-    [Required, Placeholder("Feed the Dog")]
+    [Required(ErrorMessage = "This is required, you degenerate."), Placeholder("Feed the Dog")]
     public string? Title { get; set; }
 
     [Required, Placeholder("Fluffy is hungry and needs kibble!")]

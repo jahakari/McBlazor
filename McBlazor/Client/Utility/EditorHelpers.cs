@@ -1,4 +1,5 @@
-﻿using System.Collections.Immutable;
+﻿using McBlazor.Shared.Utility;
+using System.Collections.Immutable;
 using System.ComponentModel;
 
 namespace McBlazor.Client.Utility;
