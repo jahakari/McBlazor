@@ -6,7 +6,7 @@ public static class JSExtensions
 {
     public static ValueTask AlertAsync(this IJSRuntime jSRuntime, string message)
     {
-        ArgumentNullException.ThrowIfNull(jSRuntime, nameof(JSRuntime));
+        ArgumentNullException.ThrowIfNull(jSRuntime, nameof(jSRuntime));
         ArgumentException.ThrowIfNullOrEmpty(message, nameof(message));
 
         return jSRuntime.InvokeVoidAsync("alert", message);
@@ -15,7 +15,7 @@ public static class JSExtensions
     public static ValueTask<bool> ConfirmAsync(this IJSRuntime jSRuntime, string prompt)
     {
         ArgumentNullException.ThrowIfNull(jSRuntime, nameof(jSRuntime));
-        ArgumentNullException.ThrowIfNullOrEmpty(prompt, nameof(prompt));
+        ArgumentException.ThrowIfNullOrEmpty(prompt, nameof(prompt));
 
         return jSRuntime.InvokeAsync<bool>("confirm", prompt);
     }

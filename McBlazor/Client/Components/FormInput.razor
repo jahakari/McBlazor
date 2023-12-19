@@ -2,14 +2,16 @@
 @typeparam T
 @inherits FormEditorBase<T>
 
-<FormDisplay Label="@_label" Note="@_note" Title="@_title">
+<FormLabel Label="@_label" Note="@_note" Title="@_title" For="@_id">
     <input type="@inputType"
+           id="@_id"
            class="form-control @ValidationClass"
            value="@_value"
            placeholder="@_placeholder"
            @onchange="onChangeDelegate!"
-           @oninput="onInputDelegate!" />
+           @oninput="onInputDelegate!"
+           @ref="editorElement" />
     @if (validationError is not null) {
         <span class="fw-bold text-danger">@validationError</span>
     }
-</FormDisplay>
+</FormLabel>

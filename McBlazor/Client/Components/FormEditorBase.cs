@@ -12,6 +12,7 @@ public abstract class FormEditorBase<T> : ValidatableComponent
     private readonly bool isStringValue = typeof(T).Is<string>();
     private MemberValidator memberValidator = MemberNonValidator.Instance;
 
+    protected ElementReference editorElement;
     protected T? _value;
 
     [Parameter, EditorRequired]
@@ -22,6 +23,9 @@ public abstract class FormEditorBase<T> : ValidatableComponent
 
     [Parameter]
     public EventCallback<T?> ValueChanged { get; set; }
+
+    [Parameter]
+    public int MyProperty { get; set; }
 
     [Parameter]
     public IEqualityComparer<T> EqualityComparer { get; set; } = EqualityComparer<T>.Default;
@@ -48,6 +52,11 @@ public abstract class FormEditorBase<T> : ValidatableComponent
 
     [Parameter]
     public string? Placeholder { get; set; }
+
+    protected string _id;
+
+    [Parameter]
+    public string? Id { get; set; }
 
     public override Task SetParametersAsync(ParameterView parameters)
     {
@@ -77,6 +86,8 @@ public abstract class FormEditorBase<T> : ValidatableComponent
         _note ??= provider.Note;
         _title ??= provider.Title;
         _placeholder ??= provider.Placeholder;
+
+        _id = Id ?? "_" + Guid.NewGuid();
 
         base.OnInitialized();
     }
@@ -110,6 +121,8 @@ public abstract class FormEditorBase<T> : ValidatableComponent
     }
 
     protected override Task<string?> ValidateInternalAsync() => memberValidator.ValidateAsync(_value);
+
+    protected ValueTask FocusAsync() => editorElement.FocusAsync();
 
     private bool TryGetValue(object? value, out T? result)
     {

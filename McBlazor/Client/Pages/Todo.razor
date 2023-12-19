@@ -11,9 +11,9 @@
             </CardHeader>
             <CardBody>
                 <FormValidator @ref="validator">
-                    <FormInput @bind-Value="editingItem.Title" CustomValidator="ValidateTitleAsync" />
+                    <FormInput @bind-Value="editingItem.Title" CustomValidator="ValidateTitleAsync" Placeholder="@currentPlaceholders.Title" />
+                    <FormTextArea @bind-Value="editingItem.Description" Rows="4" Placeholder="@currentPlaceholders.Description" />
                     <FormSelect @bind-Value="editingItem.Priority" Items="priorityItems" />
-                    <FormTextArea @bind-Value="editingItem.Description" Rows="4" />
                     <div class="btn-group mt-2">
                         <button type="button" class="btn btn-sm btn-success" @onclick="SaveItemAsync">
                             <span class="fas fa-save"></span>&nbsp;Save

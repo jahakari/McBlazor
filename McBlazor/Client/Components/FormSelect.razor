@@ -2,10 +2,12 @@
 @typeparam T
 @inherits FormEditorBase<T>
 
-<FormDisplay Label="@_label" Title="@_title" Note="@_note">
-    <select class="form-select @ValidationClass"
+<FormLabel Label="@_label" Title="@_title" Note="@_note" For="@_id">
+    <select id="@_id"
+            class="form-select @ValidationClass"
             value="@_value"
-            @onchange="EditorChangedAsync">
+            @onchange="EditorChangedAsync"
+            @ref="editorElement">
         @foreach (SelectItem<T> item in Items) {
             <option value="@item.Value" selected="@EqualityComparer.Equals(item.Value, _value)" @key="item.Value">@item.Label</option>
         }
@@ -13,4 +15,4 @@
     @if (validationError is not null) {
         <span class="fw-bold text-danger">@validationError</span>
     }
-</FormDisplay>
+</FormLabel>

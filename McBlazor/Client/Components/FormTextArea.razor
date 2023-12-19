@@ -1,15 +1,17 @@
 ﻿
 @inherits FormEditorBase<string>
 
-<FormDisplay Label="@_label" Title="@_title" Note="@_note">
-    <textarea class="form-control @ValidationClass"
+<FormLabel Label="@_label" Title="@_title" Note="@_note" For="@_id">
+    <textarea id="@_id"
+              class="form-control @ValidationClass"
               placeholder="@_placeholder"
               rows="@Rows"
               value="@_value"
               @oninput="onInputDelegate!"
-              @onchange="onChangeDelegate!">
+              @onchange="onChangeDelegate!"
+              @ref="editorElement">
     </textarea>
     @if (validationError is not null) {
         <span class="fw-bold text-danger">@validationError</span>
     }
-</FormDisplay>
+</FormLabel>
