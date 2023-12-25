@@ -34,7 +34,7 @@ public partial class Todo : ComponentBase
     private TodoItemViewModel editingItem = new();
     private bool isEditing;
     
-    private List<SelectItem<TodoPriority>> priorityItems = FormHelpers.CreateSelectItems<TodoPriority>();
+    private readonly List<SelectItem<TodoPriority>> priorityItems = FormHelpers.CreateSelectItems<TodoPriority>();
     private FormValidator validator = null!;
 
     [Inject]

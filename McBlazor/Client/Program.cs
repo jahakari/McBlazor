@@ -1,4 +1,6 @@
 using McBlazor.Client;
+using McBlazor.Client.Services;
+using McBlazor.Client.Services.Interfaces;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
@@ -10,5 +12,7 @@ builder.Services.AddHttpClient("McBlazor.ServerAPI", client => client.BaseAddres
 
 // Supply HttpClient instances that include access tokens when making requests to the server project
 builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("McBlazor.ServerAPI"));
+
+builder.Services.AddScoped<IApiService, ApiService>();
 
 await builder.Build().RunAsync();

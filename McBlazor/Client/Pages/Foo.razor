@@ -1,0 +1,33 @@
+﻿@page "/Foo"
+@inject McBlazor.Client.Services.Interfaces.IApiService api
+
+<div class="row">
+    <div class="col-sm-6">
+        <button type="button" class="btn btn-sm btn-primary" @onclick='() => api.GetAsync("Todo/GetOk")'>
+            Get Ok
+        </button>
+        <button type="button" class="btn btn-sm btn-primary" @onclick='() => api.GetAsync("Todo/Get")'>
+            Get
+        </button>
+        <button type="button" class="btn btn-sm btn-primary" @onclick='() => api.GetAsync("Todo/GetString")'>
+            Get String
+        </button>
+        <button type="button" class="btn btn-sm btn-primary" @onclick='() => api.GetAsync("Todo/Problem")'>
+            Get Problem
+        </button>
+        <button type="button" class="btn btn-sm btn-primary" @onclick='() => api.GetAsync("Todo/ThrowException")'>
+            Throw Exception
+        </button>
+    </div>
+    <div class="col-sm-2">
+        <Fetch T="IEnumerable<SelectItem<string>>" Url="Todo/GetItems">
+            <SuccessContent Context="items">
+                <FormSelect @bind-Value="value" Items="items" />
+            </SuccessContent>
+        </Fetch>
+    </div>
+</div>
+
+@code {
+    private string? value;
+}
