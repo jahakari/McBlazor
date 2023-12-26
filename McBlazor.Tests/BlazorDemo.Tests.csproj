@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -17,9 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\McBlazor\Client\McBlazor.Client.csproj" />
-    <ProjectReference Include="..\McBlazor\Server\McBlazor.Server.csproj" />
-    <ProjectReference Include="..\McBlazor\Shared\McBlazor.Shared.csproj" />
+    <ProjectReference Include="..\McBlazor\Client\BlazorDemo.Client.csproj" />
+    <ProjectReference Include="..\McBlazor\Server\BlazorDemo.Server.csproj" />
+    <ProjectReference Include="..\McBlazor\Shared\BlazorDemo.Shared.csproj" />
   </ItemGroup>
 
 </Project>
