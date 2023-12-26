@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace McBlazor.Shared.Models.Todo.ViewModels;
+namespace BlazorDemo.Shared.Models.Todo.ViewModels;
 
 public record TodoItemViewModel
 {

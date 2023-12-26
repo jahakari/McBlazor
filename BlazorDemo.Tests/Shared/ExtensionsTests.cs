@@ -1,8 +1,8 @@
-﻿using McBlazor.Shared.Utility;
-using McBlazor.Tests.Utility;
+﻿using BlazorDemo.Shared.Utility;
+using BlazorDemo.Tests.Utility;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace McBlazor.Tests.Shared;
+namespace BlazorDemo.Tests.Shared;
 
 [TestClass]
 public class ExtensionsTests

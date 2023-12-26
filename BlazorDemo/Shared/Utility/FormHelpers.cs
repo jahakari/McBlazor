@@ -1,6 +1,6 @@
-﻿using McBlazor.Shared.Components;
+﻿using BlazorDemo.Shared.Components;
 
-namespace McBlazor.Shared.Utility;
+namespace BlazorDemo.Shared.Utility;
 
 public static class FormHelpers
 {

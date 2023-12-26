@@ -1,13 +1,13 @@
-﻿using McBlazor.Client.Components;
-using McBlazor.Client.Utility;
-using McBlazor.Shared.Components;
-using McBlazor.Shared.Models.Todo;
-using McBlazor.Shared.Models.Todo.ViewModels;
-using McBlazor.Shared.Utility;
+﻿using BlazorDemo.Client.Components;
+using BlazorDemo.Client.Utility;
+using BlazorDemo.Shared.Components;
+using BlazorDemo.Shared.Models.Todo;
+using BlazorDemo.Shared.Models.Todo.ViewModels;
+using BlazorDemo.Shared.Utility;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace McBlazor.Client.Pages;
+namespace BlazorDemo.Client.Pages;
 
 public partial class Todo : ComponentBase
 {

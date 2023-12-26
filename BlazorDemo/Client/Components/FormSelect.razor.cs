@@ -1,7 +1,7 @@
-﻿using McBlazor.Shared.Components;
+﻿using BlazorDemo.Shared.Components;
 using Microsoft.AspNetCore.Components;
 
-namespace McBlazor.Client.Components;
+namespace BlazorDemo.Client.Components;
 
 /// <summary>
 /// Renders an Html &lt;select&gt; control.

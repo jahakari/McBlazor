@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace McBlazor.Client.Utility;
+namespace BlazorDemo.Client.Utility;
 
 public class ProblemDetails
 {

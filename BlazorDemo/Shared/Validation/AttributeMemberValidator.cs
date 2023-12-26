@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace McBlazor.Shared.Validation;
+namespace BlazorDemo.Shared.Validation;
 
 public class AttributeMemberValidator : MemberValidator
 {

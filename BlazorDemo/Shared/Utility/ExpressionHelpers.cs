@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using System.Reflection;
 
-namespace McBlazor.Shared.Utility;
+namespace BlazorDemo.Shared.Utility;
 
 public static class ExpressionHelpers
 {

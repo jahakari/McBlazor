@@ -1,9 +1,9 @@
-﻿using McBlazor.Client.Utility;
-using McBlazor.Shared.Models.Todo.ViewModels;
-using McBlazor.Shared.Models.Todo;
+﻿using BlazorDemo.Client.Utility;
+using BlazorDemo.Shared.Models.Todo.ViewModels;
+using BlazorDemo.Shared.Models.Todo;
 using Microsoft.AspNetCore.Components;
 
-namespace McBlazor.Client.Components.Todo;
+namespace BlazorDemo.Client.Components.Todo;
 
 public partial class TodoItem : ComponentBase
 {

@@ -1,10 +1,10 @@
-﻿using McBlazor.Client.Components;
-using McBlazor.Shared.Components;
-using McBlazor.Shared.Models.Todo.ViewModels;
-using McBlazor.Shared.Utility;
+﻿using BlazorDemo.Client.Components;
+using BlazorDemo.Shared.Components;
+using BlazorDemo.Shared.Models.Todo.ViewModels;
+using BlazorDemo.Shared.Utility;
 using Microsoft.AspNetCore.Mvc;
 
-namespace McBlazor.Server.Controllers;
+namespace BlazorDemo.Server.Controllers;
 
 [ApiController, Route("[controller]")]
 public class TodoController : ControllerBase

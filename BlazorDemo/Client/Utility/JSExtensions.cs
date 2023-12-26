@@ -1,6 +1,6 @@
 ﻿using Microsoft.JSInterop;
 
-namespace McBlazor.Client.Utility;
+namespace BlazorDemo.Client.Utility;
 
 public static class JSExtensions
 {

@@ -1,10 +1,10 @@
-﻿using McBlazor.Client.Services.Interfaces;
-using McBlazor.Client.Utility;
-using McBlazor.Shared.Utility;
+﻿using BlazorDemo.Client.Services.Interfaces;
+using BlazorDemo.Client.Utility;
+using BlazorDemo.Shared.Utility;
 using Microsoft.JSInterop;
 using System.Net.Http.Json;
 
-namespace McBlazor.Client.Services;
+namespace BlazorDemo.Client.Services;
 
 public class ApiService : IApiService
 {

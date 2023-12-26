@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace McBlazor.Client.Components;
+namespace BlazorDemo.Client.Components;
 
 public abstract class ValidatableComponent : ComponentBase, IDisposable
 {

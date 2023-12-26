@@ -1,7 +1,7 @@
-﻿using McBlazor.Shared.Utility;
+﻿using BlazorDemo.Shared.Utility;
 using Microsoft.AspNetCore.Components;
 
-namespace McBlazor.Client.Components;
+namespace BlazorDemo.Client.Components;
 
 public partial class FormValidator : ComponentBase
 {

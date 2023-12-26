@@ -1,8 +1,8 @@
-﻿using McBlazor.Shared.Utility;
+﻿using BlazorDemo.Shared.Utility;
 using System.Collections.Immutable;
 using System.ComponentModel;
 
-namespace McBlazor.Client.Utility;
+namespace BlazorDemo.Client.Utility;
 
 public static class EditorHelpers
 {

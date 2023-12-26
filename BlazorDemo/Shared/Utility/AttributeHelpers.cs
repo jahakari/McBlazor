@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 
-namespace McBlazor.Shared.Utility;
+namespace BlazorDemo.Shared.Utility;
 
 public static class AttributeHelpers
 {

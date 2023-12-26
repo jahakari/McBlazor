@@ -1,4 +1,4 @@
-﻿namespace McBlazor.Shared.Components;
+﻿namespace BlazorDemo.Shared.Components;
 
 public class SelectItem<T>
 {

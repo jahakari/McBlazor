@@ -1,8 +1,8 @@
-﻿using McBlazor.Shared.Attributes;
+﻿using BlazorDemo.Shared.Attributes;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace McBlazor.Shared.Utility;
+namespace BlazorDemo.Shared.Utility;
 
 public class MemberMetadataProvider
 {

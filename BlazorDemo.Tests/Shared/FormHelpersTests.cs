@@ -1,7 +1,7 @@
-﻿using McBlazor.Shared.Components;
-using McBlazor.Shared.Utility;
+﻿using BlazorDemo.Shared.Components;
+using BlazorDemo.Shared.Utility;
 
-namespace McBlazor.Tests.Shared;
+namespace BlazorDemo.Tests.Shared;
 
 [TestClass]
 public class FormHelpersTests

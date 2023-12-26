@@ -17,9 +17,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\McBlazor\Client\BlazorDemo.Client.csproj" />
-    <ProjectReference Include="..\McBlazor\Server\BlazorDemo.Server.csproj" />
-    <ProjectReference Include="..\McBlazor\Shared\BlazorDemo.Shared.csproj" />
+    <ProjectReference Include="..\BlazorDemo\Client\BlazorDemo.Client.csproj" />
+    <ProjectReference Include="..\BlazorDemo\Server\BlazorDemo.Server.csproj" />
+    <ProjectReference Include="..\BlazorDemo\Shared\BlazorDemo.Shared.csproj" />
   </ItemGroup>
 
 </Project>

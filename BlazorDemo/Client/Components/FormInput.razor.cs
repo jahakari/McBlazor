@@ -1,7 +1,7 @@
-﻿using McBlazor.Client.Utility;
+﻿using BlazorDemo.Client.Utility;
 using Microsoft.AspNetCore.Components;
 
-namespace McBlazor.Client.Components;
+namespace BlazorDemo.Client.Components;
 
 /// <summary>
 /// Renders an Html &lt;input /&gt; control.

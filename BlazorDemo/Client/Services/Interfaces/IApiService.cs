@@ -1,7 +1,7 @@
 ﻿
-using McBlazor.Client.Utility;
+using BlazorDemo.Client.Utility;
 
-namespace McBlazor.Client.Services.Interfaces;
+namespace BlazorDemo.Client.Services.Interfaces;
 
 public interface IApiService
 {

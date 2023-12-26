@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace McBlazor.Client.Components;
+namespace BlazorDemo.Client.Components;
 
 /// <summary>
 /// This component renders a label above specified child content

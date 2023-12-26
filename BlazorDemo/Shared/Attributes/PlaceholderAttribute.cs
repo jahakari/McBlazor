@@ -1,4 +1,4 @@
-﻿namespace McBlazor.Shared.Attributes;
+﻿namespace BlazorDemo.Shared.Attributes;
 
 [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false, Inherited = true)]
 public class PlaceholderAttribute : Attribute

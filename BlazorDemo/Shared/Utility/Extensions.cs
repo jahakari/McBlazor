@@ -1,4 +1,4 @@
-﻿namespace McBlazor.Shared.Utility;
+﻿namespace BlazorDemo.Shared.Utility;
 
 public static class Extensions
 {

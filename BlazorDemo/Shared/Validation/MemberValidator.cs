@@ -1,8 +1,8 @@
-﻿using McBlazor.Shared.Utility;
+﻿using BlazorDemo.Shared.Utility;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 
-namespace McBlazor.Shared.Validation;
+namespace BlazorDemo.Shared.Validation;
 
 public abstract class MemberValidator
 {

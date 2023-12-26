@@ -1,5 +1,5 @@
 ﻿
-namespace McBlazor.Tests.Utility;
+namespace BlazorDemo.Tests.Utility;
 
 public class ShouldThrowAttribute<TException> : ExpectedExceptionBaseAttribute where TException : Exception
 {

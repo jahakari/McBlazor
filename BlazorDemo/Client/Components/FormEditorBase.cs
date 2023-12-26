@@ -1,11 +1,11 @@
-﻿using McBlazor.Client.Utility;
-using McBlazor.Shared.Utility;
-using McBlazor.Shared.Validation;
+﻿using BlazorDemo.Client.Utility;
+using BlazorDemo.Shared.Utility;
+using BlazorDemo.Shared.Validation;
 using Microsoft.AspNetCore.Components;
 using System.ComponentModel;
 using System.Linq.Expressions;
 
-namespace McBlazor.Client.Components;
+namespace BlazorDemo.Client.Components;
 
 public abstract class FormEditorBase<T> : ValidatableComponent
 {

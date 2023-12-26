@@ -1,9 +1,9 @@
-﻿using McBlazor.Client.Services.Interfaces;
-using McBlazor.Client.Utility;
+﻿using BlazorDemo.Client.Services.Interfaces;
+using BlazorDemo.Client.Utility;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
-namespace McBlazor.Client.Components;
+namespace BlazorDemo.Client.Components;
 
 public class Fetch<T> : ComponentBase
 {

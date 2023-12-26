@@ -1,4 +1,4 @@
-﻿namespace McBlazor.Shared.Validation;
+﻿namespace BlazorDemo.Shared.Validation;
 
 public interface IMemberValidator
 {

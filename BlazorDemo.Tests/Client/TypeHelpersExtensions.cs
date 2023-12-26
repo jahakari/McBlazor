@@ -1,4 +1,4 @@
-﻿namespace McBlazor.Tests.Client;
+﻿namespace BlazorDemo.Tests.Client;
 
 [TestClass]
 public class TypeHelpersExtensions
