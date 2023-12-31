@@ -1,8 +1,11 @@
 ﻿.todo-item-block {
-    border: 1px solid var(--bs-primary);
-    border-left: .5em solid var(--bs-primary);
+    border-left-width: .5em!important;
 }
 
 .todo-item-block + .todo-item-block {
     margin-top: .75rem;
+}
+
+.todo-description {
+    white-space: pre-line;
 }

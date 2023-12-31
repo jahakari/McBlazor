@@ -1,22 +1,28 @@
 ﻿
-<div class="todo-item-block p-2">
+<div class="todo-item-block border @BorderTheme.BorderClass p-2">
     <div class="d-flex">
-        <div class="fs-5 fw-bold text-info">
+        <div class="d-flex flex-grow-1 fs-5 fw-bold text-info align-items-center">
             @Item.Title
-            <span class="badge @PriorityTheme.BackgroundClass rounded-pill ms-2">
-                @Item.Priority
-            </span>
+            <span class="badge @PriorityTheme.BackgroundClass rounded-pill ms-2">@Item.Priority</span>
+            @if (Item.IsComplete) {
+                <span class="badge bg-success rounded-pill ms-auto">Complete!</span>
+            }
         </div>
-        <div class="btn-group ms-auto align-self-start">
-            <button type="button" class="btn btn-sm btn-primary" title="Edit this item" disabled="@Disable" @onclick="EditButtonClickedAsync">
-                <span class="fas fa-pencil-alt"></span>
-            </button>
-            <button type="button" class="btn btn-sm btn-danger" title="Delete this item" disabled="@Disable" @onclick="DeleteButtonClickedAsync">
-                <span class="fas fa-trash"></span>
-            </button>
-        </div>
+        @if (!Item.IsComplete) {
+            <div class="btn-group ms-auto align-self-start">
+                <button type="button" class="btn btn-sm btn-success" title="Complete this item" disabled="@Disable" @onclick="CompleteButtonClickedAsync">
+                    <span class="fas fa-check"></span>
+                </button>
+                <button type="button" class="btn btn-sm btn-primary" title="Edit this item" disabled="@Disable" @onclick="EditButtonClickedAsync">
+                    <span class="fas fa-pencil-alt"></span>
+                </button>
+                <button type="button" class="btn btn-sm btn-danger" title="Delete this item" disabled="@Disable" @onclick="DeleteButtonClickedAsync">
+                    <span class="fas fa-trash"></span>
+                </button>
+            </div>
+        }
     </div>
-    <div class="text-muted">
+    <div class="text-muted todo-description">
         @Item.Description
     </div>
 </div>

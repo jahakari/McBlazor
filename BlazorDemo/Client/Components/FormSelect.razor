@@ -2,12 +2,12 @@
 @typeparam T
 @inherits FormEditorBase<T>
 
-<FormLabel Label="@_label" Title="@_title" Note="@_note" For="@_id">
+<FormLabel Label="@_label" Title="@_title" Note="@_note" For="@_id" IsRequired="_isRequired">
     <select id="@_id"
             class="form-select @ValidationClass"
             value="@_value"
             @onchange="EditorChangedAsync"
-            @ref="editorElement">
+            @ref="_editorElement">
         @foreach (SelectItem<T> item in Items) {
             <option value="@item.Value" selected="@EqualityComparer.Equals(item.Value, _value)" @key="item.Value">@item.Label</option>
         }

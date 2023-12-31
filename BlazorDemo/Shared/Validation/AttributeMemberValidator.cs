@@ -9,6 +9,9 @@ public class AttributeMemberValidator : MemberValidator
 
     public AttributeMemberValidator(ValidationAttribute[] validationAttributes, string displayName)
     {
+        ArgumentNullException.ThrowIfNull(validationAttributes, nameof(validationAttributes));
+        ArgumentException.ThrowIfNullOrWhiteSpace(displayName, nameof(displayName));
+
         this.validationAttributes = validationAttributes;
         this.displayName = displayName;
     }

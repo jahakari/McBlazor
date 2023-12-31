@@ -1,17 +1,15 @@
 ﻿using BlazorDemo.Client.Components;
-using BlazorDemo.Client.Utility;
 using BlazorDemo.Shared.Components;
 using BlazorDemo.Shared.Models.Todo;
 using BlazorDemo.Shared.Models.Todo.ViewModels;
 using BlazorDemo.Shared.Utility;
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 
 namespace BlazorDemo.Client.Pages;
 
 public partial class Todo : ComponentBase
 {
-    private readonly TodoPlaceholders[] placeholders =
+    private readonly TodoPlaceholders[] _placeholders =
     [
         new("Feed the dog", "Fluffy isn't going to feed himself!"),
         new("Walk the dog", "Fluffy isn't going to walk himself!"),
@@ -27,85 +25,71 @@ public partial class Todo : ComponentBase
         new("Learn another language", "Sólo hablo un poco de español...")
     ];
 
-    private TodoPlaceholders currentPlaceholders = new(string.Empty, string.Empty);
-    private readonly Random random = new();
+    private int _currentPlaceholderIndex = 0;
+    private TodoPlaceholders _currentPlaceholders => _placeholders[_currentPlaceholderIndex];
 
-    private List<TodoItemViewModel> items = new();
-    private TodoItemViewModel editingItem = new();
-    private bool isEditing;
+    private readonly List<TodoItemViewModel> _items = new();
+    private TodoItemViewModel _editingItem = new();
+    private bool _isEditing;
     
-    private readonly List<SelectItem<TodoPriority>> priorityItems = FormHelpers.CreateSelectItems<TodoPriority>();
-    private FormValidator validator = null!;
-
-    [Inject]
-    public IJSRuntime JSRuntime { get; set; } = null!;
+    private readonly List<SelectItem<TodoPriority>> _priorityItems = FormHelpers.CreateSelectItems<TodoPriority>();
+    private FormValidator _validator = null!;
 
     protected override void OnInitialized()
     {
-        UpdatePlaceholders();
+        Random.Shared.Shuffle(_placeholders);
         base.OnInitialized();
     }
 
     private void EditItem(TodoItemViewModel item)
     {
-        editingItem = item with { };
-        isEditing = true;
+        _editingItem = item with { };
+        _isEditing = true;
     }
 
     private void CancelEditing()
     {
-        if (!string.IsNullOrWhiteSpace(editingItem.Title) && !string.IsNullOrWhiteSpace(editingItem.Description)) {
+        if (!string.IsNullOrWhiteSpace(_editingItem.Title) && !string.IsNullOrWhiteSpace(_editingItem.Description)) {
             UpdatePlaceholders();
         }
 
-        editingItem = new();
-        isEditing = false;
-    }
-
-    private Task<string?> ValidateTitleAsync()
-    {
-        if (string.IsNullOrWhiteSpace(editingItem.Title)) {
-            return Task.FromResult("Title is required")!;
-        }
-
-        return Task.FromResult<string?>(null);
+        _editingItem = new();
+        _isEditing = false;
     }
 
     private async Task SaveItemAsync()
     {
-        if (!await validator.ValidateAsync()) {
+        if (!await _validator.ValidateAsync()) {
             return;
         }
 
-        if (isEditing) {
-            items.Replace(i => i!.Id == editingItem.Id, editingItem);
+        if (_isEditing) {
+            _items.Replace(i => i!.Id == _editingItem.Id, _editingItem);
         } else {
-            items.Add(editingItem);
+            _items.Add(_editingItem);
         }
 
         CancelEditing();
     }
 
-    private async Task DeleteItemAsync(TodoItemViewModel item)
+    private Task DeleteItemAsync(TodoItemViewModel item)
     {
-        if (await JSRuntime.ConfirmAsync("Are you sure you want to delete this Todo item?")) {
-            items.Remove(item);
-        }
+        _items.Remove(item);
+        return Task.CompletedTask;
+    }
+
+    private Task CompleteItemAsync(TodoItemViewModel item)
+    {
+        item.IsComplete = true;
+        return Task.CompletedTask;
     }
 
     private void UpdatePlaceholders()
     {
-        int retries = 3;
-
-        while (retries > 0) {
-            TodoPlaceholders newPlaceholders = placeholders[random.Next(0, placeholders.Length)];
-
-            if (currentPlaceholders != newPlaceholders) {
-                currentPlaceholders = newPlaceholders;
-                return;
-            }
-
-            retries--;
+        if (_currentPlaceholderIndex + 1 < _placeholders.Length) {
+            _currentPlaceholderIndex++;
+        } else {
+            _currentPlaceholderIndex = 0;
         }
     }
 

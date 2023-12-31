@@ -9,10 +9,10 @@ namespace BlazorDemo.Client.Components;
 
 public abstract class FormEditorBase<T> : ValidatableComponent
 {
-    private readonly bool isStringValue = typeof(T).Is<string>();
-    private MemberValidator memberValidator = MemberNonValidator.Instance;
+    private readonly bool _isStringValue = typeof(T).Is<string>();
+    private MemberValidator _memberValidator = MemberNonValidator.Instance;
 
-    protected ElementReference editorElement;
+    protected ElementReference _editorElement;
     protected T? _value;
 
     [Parameter, EditorRequired]
@@ -25,13 +25,13 @@ public abstract class FormEditorBase<T> : ValidatableComponent
     public EventCallback<T?> ValueChanged { get; set; }
 
     [Parameter]
-    public int MyProperty { get; set; }
-
-    [Parameter]
     public IEqualityComparer<T> EqualityComparer { get; set; } = EqualityComparer<T>.Default;
 
     [Parameter]
     public TypeConverter? TypeConverter { get; set; }
+
+    [Parameter]
+    public Func<object?, Task<string?>>? CustomValidator { get; set; }
 
     protected string? _label;
 
@@ -53,7 +53,13 @@ public abstract class FormEditorBase<T> : ValidatableComponent
     [Parameter]
     public string? Placeholder { get; set; }
 
-    protected string _id;
+    private bool _hasRequiredAttribute;
+    protected bool _isRequired => _hasRequiredAttribute || IsRequired;
+
+    [Parameter]
+    public bool IsRequired { get; set; }
+
+    protected string? _id;
 
     [Parameter]
     public string? Id { get; set; }
@@ -64,6 +70,7 @@ public abstract class FormEditorBase<T> : ValidatableComponent
         TrySetParameterField(parameters, nameof(Note), ref _note);
         TrySetParameterField(parameters, nameof(Title), ref _title);
         TrySetParameterField(parameters, nameof(Placeholder), ref _placeholder);
+        TrySetParameterField(parameters, nameof(Id), ref _id);
 
         return base.SetParametersAsync(parameters);
     }
@@ -80,7 +87,8 @@ public abstract class FormEditorBase<T> : ValidatableComponent
     protected override void OnInitialized()
     {
         var provider = MemberMetadataProvider.Create(ValueExpression);
-        memberValidator = MemberValidator.Create(provider);
+
+        _hasRequiredAttribute = provider.HasRequiredAttribute;
 
         _label ??= provider.Label;
         _note ??= provider.Note;
@@ -88,6 +96,11 @@ public abstract class FormEditorBase<T> : ValidatableComponent
         _placeholder ??= provider.Placeholder;
 
         _id = Id ?? "_" + Guid.NewGuid();
+
+        _memberValidator = new MemberValidatorBuilder()
+            .WithAttributeValidation(provider, _label)
+            .WithCustomValidation(CustomValidator)
+            .Build();
 
         base.OnInitialized();
     }
@@ -120,9 +133,9 @@ public abstract class FormEditorBase<T> : ValidatableComponent
         await SetValueAsync(value);
     }
 
-    protected override Task<string?> ValidateInternalAsync() => memberValidator.ValidateAsync(_value);
+    protected override Task<string?> GetValidationErrorAsync() => _memberValidator.ValidateAsync(_value);
 
-    protected ValueTask FocusAsync() => editorElement.FocusAsync();
+    protected ValueTask FocusAsync() => _editorElement.FocusAsync();
 
     private bool TryGetValue(object? value, out T? result)
     {
@@ -130,7 +143,7 @@ public abstract class FormEditorBase<T> : ValidatableComponent
             result = value switch
             {
                 null => default,
-                string s when !isStringValue && string.IsNullOrWhiteSpace(s) => default,
+                string s when !_isStringValue && string.IsNullOrWhiteSpace(s) => default,
                 _ when TypeConverter is not null => (T?)TypeConverter.ConvertFrom(value),
                 _ => EditorHelpers.ConvertFrom<T>(value)
             };
