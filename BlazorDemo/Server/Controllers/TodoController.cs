@@ -1,30 +1,69 @@
-﻿using BlazorDemo.Client.Components;
-using BlazorDemo.Shared.Components;
+﻿using BlazorDemo.Data.Models.Tables;
+using BlazorDemo.Server.Services.Interfaces;
 using BlazorDemo.Shared.Models.Todo.ViewModels;
-using BlazorDemo.Shared.Utility;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlazorDemo.Server.Controllers;
 
 [ApiController, Route("[controller]")]
 public class TodoController : ControllerBase
 {
-    [HttpGet("GetOk")]
-    public IActionResult GetOk() => Ok(new TodoItemViewModel());
+    private readonly ITodoService todoService;
+    private readonly ILogger<TodoController> logger;
 
-    [HttpGet("Get")]
-    public TodoItemViewModel Get() => new();
+    public TodoController(ITodoService todoService, ILogger<TodoController> logger)
+	{
+        this.todoService = todoService;
+        this.logger = logger;
+    }
 
-    [HttpGet("GetString")]
-    public string GetString() => "Hello";
+    [HttpGet("[action]")]
+    public IAsyncEnumerable<TodoItemViewModel> GetAll()
+        => todoService.QueryAll(TodoItemViewModel.Selector).AsAsyncEnumerable();
 
-    [HttpGet("Problem")]
-    public IActionResult GetProblem() => Problem("Oh no.");
+    [HttpPost("[action]")]
+    public async Task<IActionResult> CreateOrUpdate([FromBody] TodoItemViewModel viewModel)
+    {
+        if (!ModelState.IsValid) {
+            return Problem("Todo item is invalid.");
+        }
 
-    [HttpGet("ThrowException")]
-    public IActionResult ThrowException() => throw new NotImplementedException("Nothing to see here...");
+        try {
+            TodoItem item = viewModel.ToEntity();
+            await todoService.UpsertAsync(item);
 
-    [HttpGet("GetItems")]
-    public IEnumerable<SelectItem<string>> GetItems() 
-        => FormHelpers.CreateSelectItems("Foo", "Bar", "Baz");
+            return Ok();
+        }
+        catch (Exception e) {
+            logger.LogError(e, "Error saving Todo item.");
+            return Problem("Todo item could not be saved due to an unexpected error.");
+        }
+    }
+
+    [HttpGet("[action]")]
+    public async Task<IActionResult> Complete(int todoItemId)
+    {
+        try {
+            await todoService.CompleteAsync(todoItemId);
+            return Ok();
+        }
+        catch (Exception e) {
+            logger.LogError(e, "Error completing Todo item.");
+            return Problem("Todo item could not be completed due to an unexpected error.");
+        }
+    }
+
+    [HttpDelete("[action]")]
+    public async Task<IActionResult> Delete(int todoItemId)
+    {
+        try {
+            await todoService.DeleteAsync(todoItemId);
+            return Ok();
+        }
+        catch (Exception e) {
+            logger.LogError(e, "Error deleting Todo item.");
+            return Problem("Todo item could not be deleted due to an unexpected error.");
+        }
+    }
 }

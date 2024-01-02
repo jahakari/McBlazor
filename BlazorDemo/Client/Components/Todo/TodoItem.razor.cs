@@ -1,9 +1,9 @@
 ﻿using BlazorDemo.Client.Utility;
 using BlazorDemo.Shared.Models.Todo.ViewModels;
-using BlazorDemo.Shared.Models.Todo;
 using Microsoft.AspNetCore.Components;
 using System.ComponentModel;
 using Microsoft.JSInterop;
+using BlazorDemo.Data.Models;
 
 namespace BlazorDemo.Client.Components.Todo;
 

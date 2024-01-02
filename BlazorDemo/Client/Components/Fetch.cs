@@ -20,12 +20,22 @@ public class Fetch<T> : ComponentBase
     [Parameter, EditorRequired]
     public RenderFragment<T?>? SuccessContent { get; set; } = default!;
 
+    [Parameter]
+    public EventCallback<T?> OnSuccess { get; set; }
+
+    [Parameter]
+    public bool AlertErrors { get; set; }
+
     [Inject]
     public IApiService Api { get; set; } = default!;
 
     protected override async Task OnInitializedAsync()
     {
-        ApiResult<T> result = await Api.GetAsync<T>(Url);
+        ApiResult<T> result = await Api.GetAsync<T>(Url, AlertErrors);
+
+        if (result.Success) {
+            await OnSuccess.InvokeAsync(result.Value);
+        }
 
         hasError = !result.Success;
         data = result.Value;

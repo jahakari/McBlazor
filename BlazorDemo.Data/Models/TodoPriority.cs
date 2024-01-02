@@ -1,4 +1,4 @@
-﻿namespace BlazorDemo.Shared.Models.Todo;
+﻿namespace BlazorDemo.Data.Models;
 
 public enum TodoPriority
 {

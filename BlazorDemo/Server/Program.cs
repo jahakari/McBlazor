@@ -1,11 +1,24 @@
-using Microsoft.AspNetCore.ResponseCompression;
+using BlazorDemo.Data.Models;
+using BlazorDemo.Server.Services;
+using BlazorDemo.Server.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
+builder.Services.AddDbContextFactory<DemoContext>();
+
+builder.Services.AddScoped<ITodoService, TodoService>();
+
 var app = builder.Build();
+
+var ctxFactory = app.Services.GetRequiredService<IDbContextFactory<DemoContext>>();
+
+using (var db = await ctxFactory.CreateDbContextAsync()) {
+    await db.Database.EnsureCreatedAsync();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment()) {

@@ -1,6 +1,7 @@
 ﻿using BlazorDemo.Client.Components;
+using BlazorDemo.Client.Services.Interfaces;
+using BlazorDemo.Data.Models;
 using BlazorDemo.Shared.Components;
-using BlazorDemo.Shared.Models.Todo;
 using BlazorDemo.Shared.Models.Todo.ViewModels;
 using BlazorDemo.Shared.Utility;
 using Microsoft.AspNetCore.Components;
@@ -28,12 +29,15 @@ public partial class Todo : ComponentBase
     private int _currentPlaceholderIndex = 0;
     private TodoPlaceholders _currentPlaceholders => _placeholders[_currentPlaceholderIndex];
 
-    private readonly List<TodoItemViewModel> _items = new();
+    private List<TodoItemViewModel> _items = new();
     private TodoItemViewModel _editingItem = new();
     private bool _isEditing;
     
     private readonly List<SelectItem<TodoPriority>> _priorityItems = FormHelpers.CreateSelectItems<TodoPriority>();
-    private FormValidator _validator = null!;
+    private FormValidator _validator = default!;
+
+    [Inject]
+    public IApiService Api { get; set; } = default!;
 
     protected override void OnInitialized()
     {
@@ -63,8 +67,12 @@ public partial class Todo : ComponentBase
             return;
         }
 
+        if (!await Api.PostAsync("Todo/CreateOrUpdate", _editingItem)) {
+            return;
+        }
+
         if (_isEditing) {
-            _items.Replace(i => i!.Id == _editingItem.Id, _editingItem);
+            _items.Replace(i => i!.TodoItemId == _editingItem.TodoItemId, _editingItem);
         } else {
             _items.Add(_editingItem);
         }
@@ -72,16 +80,18 @@ public partial class Todo : ComponentBase
         CancelEditing();
     }
 
-    private Task DeleteItemAsync(TodoItemViewModel item)
+    private async Task DeleteItemAsync(TodoItemViewModel item)
     {
-        _items.Remove(item);
-        return Task.CompletedTask;
+        if (await Api.DeleteAsync($"Todo/Delete?todoItemId={item.TodoItemId}")) {
+            _items.Remove(item); 
+        }
     }
 
-    private Task CompleteItemAsync(TodoItemViewModel item)
+    private async Task CompleteItemAsync(TodoItemViewModel item)
     {
-        item.IsComplete = true;
-        return Task.CompletedTask;
+        if (await Api.GetAsync($"Todo/Complete?todoItemId={item.TodoItemId}")) {
+            item.IsComplete = true;
+        }
     }
 
     private void UpdatePlaceholders()
