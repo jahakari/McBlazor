@@ -12,7 +12,7 @@
             <option value="@item.Value" selected="@EqualityComparer.Equals(item.Value, _value)" @key="item.Value">@item.Label</option>
         }
     </select>
-    @if (validationError is not null) {
-        <span class="fw-bold text-danger">@validationError</span>
+    @if (_validationError is not null) {
+        <span class="fw-bold text-danger">@_validationError</span>
     }
 </FormLabel>

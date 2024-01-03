@@ -3,15 +3,15 @@
 @inherits FormEditorBase<T>
 
 <FormLabel Label="@_label" Note="@_note" Title="@_title" For="@_id" IsRequired="_isRequired">
-    <input type="@inputType"
+    <input type="@_inputType"
            id="@_id"
            class="form-control @ValidationClass"
            value="@_value"
            placeholder="@_placeholder"
-           @onchange="onChangeDelegate!"
-           @oninput="onInputDelegate!"
+           @onchange="_onChangeDelegate!"
+           @oninput="_onInputDelegate!"
            @ref="_editorElement" />
-    @if (validationError is not null) {
-        <span class="fw-bold text-danger">@validationError</span>
+    @if (_validationError is not null) {
+        <span class="fw-bold text-danger">@_validationError</span>
     }
 </FormLabel>

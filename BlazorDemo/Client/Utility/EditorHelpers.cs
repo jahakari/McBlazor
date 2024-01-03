@@ -6,7 +6,7 @@ namespace BlazorDemo.Client.Utility;
 
 public static class EditorHelpers
 {
-    private static readonly ImmutableDictionary<Type, TypeConverter> typeConverters = new Dictionary<Type, TypeConverter>()
+    private static readonly ImmutableDictionary<Type, TypeConverter> _typeConverters = new Dictionary<Type, TypeConverter>()
     {
         { typeof(byte), new ByteConverter() },
         { typeof(sbyte), new SByteConverter() },
@@ -46,7 +46,7 @@ public static class EditorHelpers
 
     private static TypeConverter GetTypeConverter(Type type)
     {
-        if (typeConverters.TryGetValue(type, out TypeConverter? converter)) {
+        if (_typeConverters.TryGetValue(type, out TypeConverter? converter)) {
             return converter;
         }
 

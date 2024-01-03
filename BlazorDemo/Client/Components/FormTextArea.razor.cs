@@ -7,8 +7,8 @@ namespace BlazorDemo.Client.Components;
 /// </summary>
 public partial class FormTextArea : FormEditorBase<string?>
 {
-    private Func<ChangeEventArgs, Task>? onChangeDelegate;
-    private Func<ChangeEventArgs, Task>? onInputDelegate;
+    private Func<ChangeEventArgs, Task>? _onChangeDelegate;
+    private Func<ChangeEventArgs, Task>? _onInputDelegate;
 
     /// <summary>
     /// When <see langword="true" />, binds the input contents to the underlying component value after each key press.
@@ -26,10 +26,10 @@ public partial class FormTextArea : FormEditorBase<string?>
     protected override void OnInitialized()
     {
         if (BindValueOnInput) {
-            onInputDelegate = EditorChangedAsync;
+            _onInputDelegate = EditorChangedAsync;
         }
         else {
-            onChangeDelegate = EditorChangedAsync;
+            _onChangeDelegate = EditorChangedAsync;
         }
 
         base.OnInitialized();

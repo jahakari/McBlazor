@@ -2,21 +2,21 @@
 
 public class BootstrapTheme
 {
-    private readonly string theme;
+    private readonly string _theme;
 
-    private BootstrapTheme(string theme) => this.theme = theme;
+    private BootstrapTheme(string theme) => _theme = theme;
 
-    private string? textClass;
-    public string TextClass => textClass ??= $"text-{theme}";
+    private string? _textClass;
+    public string TextClass => _textClass ??= $"text-{_theme}";
 
-    private string? backgroundClass;
-    public string BackgroundClass => backgroundClass ??= $"bg-{theme}";
+    private string? _backgroundClass;
+    public string BackgroundClass => _backgroundClass ??= $"bg-{_theme}";
 
-    private string? buttonClass;
-    public string ButtonClass => buttonClass ??= $"btn-{theme}";
+    private string? _buttonClass;
+    public string ButtonClass => _buttonClass ??= $"btn-{_theme}";
 
-    private string? borderClass;
-    public string BorderClass => borderClass ??= $"border-{theme}";
+    private string? _borderClass;
+    public string BorderClass => _borderClass ??= $"border-{_theme}";
 
     public static BootstrapTheme Primary { get; } = new("primary");
     public static BootstrapTheme Secondary { get; } = new("secondary");

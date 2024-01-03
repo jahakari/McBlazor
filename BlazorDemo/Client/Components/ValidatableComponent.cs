@@ -4,8 +4,8 @@ namespace BlazorDemo.Client.Components;
 
 public abstract class ValidatableComponent : ComponentBase, IDisposable
 {
-    protected string? validationError;
-    protected string? ValidationClass => validationError is null ? null : "invalid";
+    protected string? _validationError;
+    protected string? ValidationClass => _validationError is null ? null : "invalid";
 
     [CascadingParameter]
     public FormValidator? Validator { get; set; }
@@ -16,8 +16,8 @@ public abstract class ValidatableComponent : ComponentBase, IDisposable
 
     public async Task<bool> ValidateAsync()
     {
-        validationError = await GetValidationErrorAsync();
-        return validationError is null;
+        _validationError = await GetValidationErrorAsync();
+        return _validationError is null;
     }
 
     public async Task<bool> IsValidAsync() => await GetValidationErrorAsync() is null;

@@ -5,7 +5,7 @@ namespace BlazorDemo.Shared.Utility;
 
 public static class TypeHelpers
 {
-    private static readonly ImmutableArray<Type> numericTypes = new[]
+    private static readonly ImmutableArray<Type> _numericTypes = new[]
     {
         typeof(byte),
         typeof(sbyte),
@@ -20,7 +20,7 @@ public static class TypeHelpers
         typeof(ushort)
     }.ToImmutableArray();
 
-    private static readonly ImmutableArray<Type> dateTypes = new[]
+    private static readonly ImmutableArray<Type> _dateTypes = new[]
     {
         typeof(DateTime),
         typeof(DateTimeOffset),
@@ -29,9 +29,9 @@ public static class TypeHelpers
 
     public static bool Is<T>(this Type type) => typeof(T) == GetType(type);
 
-    public static bool IsNumeric(this Type type) => numericTypes.Contains(GetType(type));
+    public static bool IsNumeric(this Type type) => _numericTypes.Contains(GetType(type));
 
-    public static bool IsDate(this Type type) => dateTypes.Contains(GetType(type));
+    public static bool IsDate(this Type type) => _dateTypes.Contains(GetType(type));
 
     public static Type GetType<T>() => GetType(typeof(T));
 

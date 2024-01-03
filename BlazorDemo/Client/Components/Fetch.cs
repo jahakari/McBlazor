@@ -7,9 +7,9 @@ namespace BlazorDemo.Client.Components;
 
 public class Fetch<T> : ComponentBase
 {
-    private bool isInitialized;
-    private bool hasError;
-    private T? data;
+    private bool _isInitialized;
+    private bool _hasError;
+    private T? _data;
 
     [Parameter, EditorRequired]
     public string Url { get; set; } = default!;
@@ -37,21 +37,21 @@ public class Fetch<T> : ComponentBase
             await OnSuccess.InvokeAsync(result.Value);
         }
 
-        hasError = !result.Success;
-        data = result.Value;
-        isInitialized = true;
+        _hasError = !result.Success;
+        _data = result.Value;
+        _isInitialized = true;
     }
 
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
-        if (!isInitialized) {
+        if (!_isInitialized) {
             return;
         }
 
-        if (hasError) {
+        if (_hasError) {
             builder.AddContent(0, ErrorContent);
         } else {
-            builder.AddContent(1, SuccessContent, data);
+            builder.AddContent(1, SuccessContent, _data);
         }
     }
 }

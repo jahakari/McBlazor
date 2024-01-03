@@ -7,11 +7,11 @@
               placeholder="@_placeholder"
               rows="@Rows"
               value="@_value"
-              @oninput="onInputDelegate!"
-              @onchange="onChangeDelegate!"
+              @oninput="_onInputDelegate!"
+              @onchange="_onChangeDelegate!"
               @ref="_editorElement">
     </textarea>
-    @if (validationError is not null) {
-        <span class="fw-bold text-danger">@validationError</span>
+    @if (_validationError is not null) {
+        <span class="fw-bold text-danger">@_validationError</span>
     }
 </FormLabel>

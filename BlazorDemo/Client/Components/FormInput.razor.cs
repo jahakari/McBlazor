@@ -9,9 +9,9 @@ namespace BlazorDemo.Client.Components;
 /// <typeparam name="T">The type of data bound to this component.</typeparam>
 public partial class FormInput<T> : FormEditorBase<T>
 {
-    private string? inputType;
-    private Func<ChangeEventArgs, Task>? onChangeDelegate;
-    private Func<ChangeEventArgs, Task>? onInputDelegate;
+    private string? _inputType;
+    private Func<ChangeEventArgs, Task>? _onChangeDelegate;
+    private Func<ChangeEventArgs, Task>? _onInputDelegate;
 
     /// <summary>
     /// When <see langword="true" />, binds the input contents to the underlying component value after each key press.
@@ -22,14 +22,14 @@ public partial class FormInput<T> : FormEditorBase<T>
 
     protected override void OnInitialized()
     {
-        if (!EditorHelpers.TryGetInputType<T>(out inputType)) {
+        if (!EditorHelpers.TryGetInputType<T>(out _inputType)) {
             throw new Exception($"Input type could not be determined for Type '{typeof(T)}'.");
         }
 
         if (BindValueOnInput) {
-            onInputDelegate = EditorChangedAsync;
+            _onInputDelegate = EditorChangedAsync;
         } else {
-            onChangeDelegate = EditorChangedAsync;
+            _onChangeDelegate = EditorChangedAsync;
         }
 
         base.OnInitialized();

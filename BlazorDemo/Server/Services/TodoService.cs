@@ -9,24 +9,24 @@ namespace BlazorDemo.Server.Services;
 
 public class TodoService : ITodoService
 {
-    private readonly DemoContext db;
+    private readonly DemoContext _db;
 
-    public TodoService(DemoContext db) => this.db = db;
+    public TodoService(DemoContext db) => _db = db;
 
-    public IQueryable<TodoItem> QueryAll() => db.TodoItems;
+    public IQueryable<TodoItem> QueryAll() => _db.TodoItems;
 
     public IQueryable<TProjection> QueryAll<TProjection>(Expression<Func<TodoItem, TProjection>> selector)
         => QueryAll().Select(selector);
 
     public Task UpsertAsync(TodoItem item)
     {
-        db.TodoItems.Update(item);
-        return db.SaveChangesAsync();
+        _db.TodoItems.Update(item);
+        return _db.SaveChangesAsync();
     }
 
     public Task CompleteAsync(int todoItemId)
-        => db.TodoItems.Where(t => t.TodoItemId == todoItemId)
+        => _db.TodoItems.Where(t => t.TodoItemId == todoItemId)
             .ExecuteUpdateAsync(s => s.SetProperty(t => t.IsComplete, true));
 
-    public Task DeleteAsync(int todoItemId) => db.TodoItems.ExecuteDeleteAsync(t => t.TodoItemId == todoItemId);
+    public Task DeleteAsync(int todoItemId) => _db.TodoItems.ExecuteDeleteAsync(t => t.TodoItemId == todoItemId);
 }
