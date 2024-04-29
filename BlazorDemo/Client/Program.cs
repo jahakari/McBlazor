@@ -14,5 +14,6 @@ builder.Services.AddHttpClient("BlazorDemo.ServerAPI", client => client.BaseAddr
 builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("BlazorDemo.ServerAPI"));
 
 builder.Services.AddScoped<IApiService, ApiService>();
+builder.Services.AddScoped<ITodoItemRepository, LocalTodoItemRepository>();
 
 await builder.Build().RunAsync();

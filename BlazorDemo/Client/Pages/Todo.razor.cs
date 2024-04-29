@@ -37,12 +37,14 @@ public partial class Todo : ComponentBase
     private FormValidator _validator = default!;
 
     [Inject]
-    public IApiService Api { get; set; } = default!;
+    public ITodoItemRepository Repository { get; set; } = default!;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         Random.Shared.Shuffle(_placeholders);
-        base.OnInitialized();
+        _items = await Repository.GetItemsAsync();
+
+        await base.OnInitializedAsync();
     }
 
     private void EditItem(TodoItemViewModel item)
@@ -67,12 +69,12 @@ public partial class Todo : ComponentBase
             return;
         }
 
-        if (!await Api.PostAsync("Todo/CreateOrUpdate", _editingItem)) {
+        if (!await Repository.SaveItemAsync(_editingItem)) {
             return;
         }
 
         if (_isEditing) {
-            _items.Replace(i => i!.TodoItemId == _editingItem.TodoItemId, _editingItem);
+            _items.TryReplace(i => i!.TodoItemId == _editingItem.TodoItemId, _editingItem);
         } else {
             _items.Add(_editingItem);
         }
@@ -82,14 +84,14 @@ public partial class Todo : ComponentBase
 
     private async Task DeleteItemAsync(TodoItemViewModel item)
     {
-        if (await Api.DeleteAsync($"Todo/Delete?todoItemId={item.TodoItemId}")) {
+        if (await Repository.DeleteItemAsync(item.TodoItemId)) {
             _items.Remove(item); 
         }
     }
 
     private async Task CompleteItemAsync(TodoItemViewModel item)
     {
-        if (await Api.GetAsync($"Todo/Complete?todoItemId={item.TodoItemId}")) {
+        if (await Repository.MarkItemCompleteAsync(item.TodoItemId)) {
             item.IsComplete = true;
         }
     }

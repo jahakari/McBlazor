@@ -30,19 +30,15 @@
     </div>
     <div class="col-lg-5">
         <h3 class="text-info border-bottom border-info mb-2">My Todo List</h3>
-        <Fetch Url="Todo/GetAll" T="List<TodoItemViewModel>" OnSuccess="items => _items = items">
-            <SuccessContent>
-                @if (_items.Count == 0) {
-                    <div class="text-center text-success fw-bold p-3">
-                        TODO: Add some Todo items ;)
-                    </div>
-                }
-                else {
-                    foreach (TodoItemViewModel item in _items) {
-                        <TodoItem Item="item" OnEdit="EditItem" OnDelete="DeleteItemAsync" OnComplete="CompleteItemAsync" Disable="_isEditing" />
-                    }
-                }
-            </SuccessContent>
-        </Fetch>
+        @if (_items.Count == 0) {
+            <div class="text-center text-success fw-bold p-3">
+                TODO: Add some Todo items ;)
+            </div>
+        }
+        else {
+            foreach (TodoItemViewModel item in _items) {
+                <TodoItem Item="item" OnEdit="EditItem" OnDelete="DeleteItemAsync" OnComplete="CompleteItemAsync" Disable="_isEditing" />
+            }
+        }
     </div>
 </div>

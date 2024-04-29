@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorDemo.Shared", "Blazor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorDemo.Tests", "BlazorDemo.Tests\BlazorDemo.Tests.csproj", "{9857DA2D-EC6C-49A0-A89D-E2CFB7F2127D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorDemo.Data", "BlazorDemo.Data\BlazorDemo.Data.csproj", "{3DF239A3-59B7-410E-AC18-6079EBB2621D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorDemo.Data", "BlazorDemo.Data\BlazorDemo.Data.csproj", "{3DF239A3-59B7-410E-AC18-6079EBB2621D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

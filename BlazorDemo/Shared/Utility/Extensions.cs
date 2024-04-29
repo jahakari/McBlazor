@@ -19,7 +19,7 @@ public static class Extensions
         return list;
     }
 
-    public static void Replace<T>(this List<T> list, Predicate<T?> predicate, T replacementItem)
+    public static bool TryReplace<T>(this List<T> list, Predicate<T?> predicate, T replacementItem)
     {
         ArgumentNullException.ThrowIfNull(list, nameof(list));
         ArgumentNullException.ThrowIfNull(predicate, nameof(predicate));
@@ -27,10 +27,27 @@ public static class Extensions
         int index = list.FindIndex(predicate);
 
         if (index < 0) {
-            return;
+            return false;
         }
 
         list[index] = replacementItem;
+        return true;
+    }
+
+    public static bool TryUpdate<T>(this List<T> list, Predicate<T?> predicate, Action<T> updateAction)
+    {
+        ArgumentNullException.ThrowIfNull(list, nameof(list));
+        ArgumentNullException.ThrowIfNull(predicate, nameof(predicate));
+        ArgumentNullException.ThrowIfNull(updateAction, nameof(updateAction));
+
+        T? item = list.Find(predicate);
+
+        if (item is null) {
+            return false;
+        }
+
+        updateAction(item);
+        return true;
     }
 
     public static bool TryAdd<T>(this List<T> list, T item)
@@ -42,6 +59,21 @@ public static class Extensions
         }
 
         list.Add(item);
+        return true;
+    }
+
+    public static bool TryRemove<T>(this List<T> list, Predicate<T?> predicate)
+    {
+        ArgumentNullException.ThrowIfNull(list, nameof(list));
+        ArgumentNullException.ThrowIfNull(predicate, nameof(predicate));
+
+        int index = list.FindIndex(predicate);
+
+        if (index < 0) {
+            return false;
+        }
+
+        list.RemoveAt(index);
         return true;
     }
 

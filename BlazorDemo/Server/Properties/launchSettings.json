@@ -13,7 +13,7 @@
         "https": {
             "commandName": "Project",
             "launchBrowser": true,
-            "launchUrl": "Todo",
+            "launchUrl": "Bar",
             "environmentVariables": {
                 "ASPNETCORE_ENVIRONMENT": "Development"
             },
